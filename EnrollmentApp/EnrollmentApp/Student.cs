@@ -10,11 +10,14 @@ namespace EnrollmentApp
     class Student
     {
         private static int LastRegistredStudentId = 0;
-        #region Properties
+        #region constructor
         public Student()
         {
             Id=++LastRegistredStudentId;
         }
+        #endregion
+
+        #region Properties
         public int Id { get; set; }
         public string FirstName{ get; set; }
         public string LastName { get; set; }
@@ -23,6 +26,20 @@ namespace EnrollmentApp
         public char Sex{ get; set; }
         #endregion
 
+        #region Method
+        public void Register(string firstName,string lastName,DateTime birthday,DateTime dateOfregisteration)
+        {
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.BirthDay = birthday;
+            this.DateOfRegistration = dateOfregisteration;
+        }
+        public void RegisterForCourse()
+        {
+
+        }
+
+        #endregion
 
 
     }
