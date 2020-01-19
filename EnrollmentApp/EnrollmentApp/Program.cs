@@ -6,7 +6,7 @@ namespace EnrollmentApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+
         }
     }
 }
