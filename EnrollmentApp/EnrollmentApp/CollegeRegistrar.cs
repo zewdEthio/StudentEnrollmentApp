@@ -14,7 +14,8 @@ namespace EnrollmentApp
         /// Contains registred list of students at the college.
         /// </summary>
 
-        static public List<Student> RegisredStudentsList { get; set; }
+       static public List<Student> RegisredStudentsList { get; set; }
+       static public List<Course> CourseList { get; set; }
         #endregion
         #region methods
         /// <summary>
@@ -25,7 +26,7 @@ namespace EnrollmentApp
         /// <param name="birthDay"></param>
         /// <param name="type"></param>
         /// <param name="sex"></param>
-        static public void RegisterStudent(string firstName, string lastName, DateTime birthDay, StudentType type, Gender sex)
+        static public void EnrollStudent(string firstName, string lastName, DateTime birthDay, StudentType type, Gender sex)
         {
             RegisredStudentsList.Add(new Student()
             {

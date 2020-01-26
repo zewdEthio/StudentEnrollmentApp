@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 
 namespace EnrollmentApp
@@ -36,8 +37,32 @@ namespace EnrollmentApp
         public DateTime DateOfRegistration { get; set; }
         public StudentType Type { get; set; }
         public Gender Sex { get; set; }
-        public IEnumerable<Course>RegistredCourses {get; set;}
+        public HashSet<Course>RegistredCourses {get; set;}
         #endregion
+        #region method
+        public void RegisterForCourse(HashSet<Course> course)
+        {
+            //TO DO: check registrar policy for the maximum number of course registred at atime for a simister.
+            if (!course.All(i => this.RegistredCourses.Contains(i)))
+                {
+                this.RegistredCourses.Concat(course);
+                }
+            else
+            {
+                Console.WriteLine("you already registed for this course");
+            }
+        }
 
+        public void DeropCourse(List<Course> course)
+        {
+            if (course.All(i => this.RegistredCourses.Contains(i)))
+            {
+                this.RegistredCourses = this.RegistredCourses.Except(course).ToHashSet();
+            }
+           else
+           {
+                Console.WriteLine("you are not registred for this course");
+            }
+        #endregion
     }
 }
