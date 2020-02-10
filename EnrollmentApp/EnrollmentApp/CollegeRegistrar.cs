@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -25,11 +27,14 @@ namespace EnrollmentApp
 
     enum programsNames
         {
-
+        [Description("Computer Science")] 
         compterscience,
-        Business,
-        electricalEng,
-        SWEngi,
+        [Description("Business Adminstration")]
+        BusinessAdmin,
+        [Description("Electrical Enrineering")]
+        electrical_Eng,
+        [Description("Software Enrineering")]
+        Software_Engi,
 
     }
 
@@ -58,7 +63,7 @@ namespace EnrollmentApp
         static public void EnrollStudent(string firstName, string lastName, DateTime birthDay, StudentType type, Gender sex, programsNames programName)
         {
             var program = Programs.Where(p => p.ProgramName == programName).FirstOrDefault();
-            program.RegisredStudentsList.Add(new Student()
+            program?.RegisredStudentsList.Add(new Student()
             {
                 FirstName = firstName,
                 LastName = lastName,
@@ -71,16 +76,31 @@ namespace EnrollmentApp
         {
             var program = Programs.Where(p => p.RegisredStudentsList.Contains(student)).FirstOrDefault();
 
-            var courseavaliable = program.DisplayCoursesForYearPerSemister(semister, year);
-            //TO DO: check registrar policy for the maximum number of course registred at atime for a simister.
-            if (!course.All(i => student.RegistredCourses.Contains(i)) && course.All(i => courseavaliable.Contains(i)))
+            if (program != null) // if student is enrolled in aprogram
             {
+                var courseavaliable =DisplayCoursesForYearPerSemister(semister, year,program.ProgramName);
+                //TO DO: check registrar policy for the maximum number of course registred at atime for a simister.
+                if (!course.All(i => student.RegistredCourses.Contains(i)) && course.All(i => courseavaliable.Contains(i)))
+                {
 
-                student.RegistredCourses.Concat(course);
+                    student.RegistredCourses.Concat(course);
+                }
+                else
+                {
+                    Console.WriteLine("you already registed for this course or not avaliable");
+                }
             }
             else
             {
-                Console.WriteLine("you already registed for this course or not avaliable");
+                Console.WriteLine("please enroll in aprogramm");
+            }
+        }
+       static public void DisplayAllProgramNames()
+        {
+            var names = Enum.GetNames(typeof(programsNames));
+            foreach(var name in names)
+            {
+                Console.WriteLine(name);
             }
         }
         static public void DeropCourse(List<Course> course, Student student)
@@ -94,7 +114,15 @@ namespace EnrollmentApp
             {
                 Console.WriteLine("you are not registred for this course");
             }
-            #endregion
         }
+        static public IEnumerable<Course> DisplayCoursesForYearPerSemister(semisterNames semister, SemisterYear year, programsNames program)
+        {
+
+            return Programs.Where(p => p.ProgramName ==program).FirstOrDefault().Courses.Where(c => c.semisterName == semister && c.Semisterbatch == year);
+
+
+        }
+
+        #endregion
     }
 }

@@ -15,11 +15,6 @@ namespace EnrollmentApp
         public IEnumerable<Course>Courses {get; set;}
         public List<Student> RegisredStudentsList { get; set; }
 
-        public IEnumerable<Course>DisplayCoursesForYearPerSemister(semisterNames semister,SemisterYear year)
-        {
-            return Courses.Where(c => c.semisterName == semister && c.Semisterbatch == year);
-
-                
-        }
+        
     }
 }
