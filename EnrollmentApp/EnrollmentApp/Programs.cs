@@ -15,6 +15,5 @@ namespace EnrollmentApp
         public IEnumerable<Course>Courses {get; set;}
         public List<Student> RegisredStudentsList { get; set; }
 
-        
     }
 }

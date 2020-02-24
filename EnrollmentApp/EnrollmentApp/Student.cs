@@ -22,12 +22,12 @@ namespace EnrollmentApp
     /// </summary>
     class Student
     {
-        private static int LastRegistredStudentId = 0;
+       
         public int MaximumCrteditHourPerSemister = 20;
         public int MinumumCreditHourPerSemister = 5;
         public Student()
         {
-            Id = ++LastRegistredStudentId;
+           
             DateOfEnrollement = DateTime.UtcNow;
         }
         #region Properties
@@ -39,11 +39,15 @@ namespace EnrollmentApp
         public StudentType Type { get; set; }
         public Gender Sex { get; set; }
         public HashSet<Course>RegistredCourses {get; set;}
+        public Programs program { get; set; }
+        public programsNames ProgramNames { get; set; }
+        public Course courses { get; set; }
+        public string courseCode { get; set; }
         #endregion
         #region method
-       
 
-       
+
+
         #endregion
     }
 }

@@ -12,6 +12,8 @@ namespace EnrollmentApp
         public string Code { get; set; }
         public float FeeAmount { get; set; }
         public int CreditHour { get; set; }
+        public programsNames ProgramName { get; set; }
+        public Programs program { get; set; }
         public semisterNames semisterName { get; set; }
         public SemisterYear Semisterbatch { get; set; }
 

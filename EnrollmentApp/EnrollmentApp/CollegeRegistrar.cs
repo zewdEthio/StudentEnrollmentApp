@@ -44,10 +44,7 @@ namespace EnrollmentApp
     static class CollegeRegistrar
     {
         #region properties
-        /// <summary>
-        /// Contains registred list of students at the college.
-        /// </summary>
-
+        private static CollegeContext db = new CollegeContext();
 
         static public IEnumerable<Programs> Programs { get; set; }
         #endregion
@@ -62,15 +59,17 @@ namespace EnrollmentApp
         /// <param name="sex"></param>
         static public void EnrollStudent(string firstName, string lastName, DateTime birthDay, StudentType type, Gender sex, programsNames programName)
         {
-            var program = Programs.Where(p => p.ProgramName == programName).FirstOrDefault();
-            program?.RegisredStudentsList.Add(new Student()
+           
+            db.Students.Add(new Student()
             {
                 FirstName = firstName,
                 LastName = lastName,
                 BirthDay = birthDay,
                 Type = type,
                 Sex = sex,
-            }); ;
+                ProgramNames = programName,
+            });
+            db.SaveChanges();
         }
         static public void RegisterForCourse(HashSet<Course> course, Student student, semisterNames semister, SemisterYear year)
         {
